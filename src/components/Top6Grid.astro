@@ -1,0 +1,124 @@
+---
+import type { RankingComputation } from '../data/utils/ranking-scoring';
+import { HOMEPAGE_HIGHLIGHTS } from '../data/homepage-highlights';
+
+interface Props {
+  entries: RankingComputation[];
+}
+
+const { entries } = Astro.props;
+
+// 纯装饰用的头像字符+配色，不是内容，只是给每张卡一个可辨识的视觉标记。
+// 配色统一在玫瑰红+暖金这个品牌色系内取不同色相，和站群内其他姊妹站的
+// 配色区分开（具体对照见 CLAUDE.md 第26节"姊妹站"部分），按本站当前
+// Top 7 名单配置。
+const DECOR: Record<string, { glyph: string; from: string; to: string }> = {
+  'wuyou-lianjie': { glyph: 'W', from: '#fda4af', to: '#e11d48' },
+  xingdaomeng: { glyph: '星', from: '#fed7aa', to: '#c2410c' },
+  'guangsu-cloud': { glyph: '光', from: '#fbcfe8', to: '#db2777' },
+  firefly: { glyph: 'F', from: '#fde047', to: '#ca8a04' },
+  'sogo-cloud': { glyph: 'S', from: '#fca5a5', to: '#b91c1c' },
+  'feimao-cloud': { glyph: '飞', from: '#fecdd3', to: '#be123c' },
+  'weifeng-network': { glyph: '微', from: '#fdba74', to: '#ea580c' },
+};
+
+// TOP1（编辑部首选）单独作为整行重点卡片展示；第2位起用统一的普通卡片网格，
+// 避免最后一张单独换行时被拉伸成超宽卡片。
+const featuredEntry = entries.find((entry) => entry.finalRank === 1);
+const restEntries = entries.filter((entry) => entry.finalRank !== 1);
+---
+
+{
+  featuredEntry &&
+    (() => {
+      const decor = DECOR[featuredEntry.providerId] ?? {
+        glyph: featuredEntry.providerName.slice(0, 1),
+        from: '#94a3b8',
+        to: '#64748b',
+      };
+      const highlight = HOMEPAGE_HIGHLIGHTS[featuredEntry.providerId];
+      return (
+        <a
+          class="top6-card top6-card--featured"
+          href={`/airports/${featuredEntry.providerSlug}/`}
+          data-analytics-event="recommendation_card_click"
+          data-provider={featuredEntry.providerSlug}
+          data-provider-name={featuredEntry.providerName}
+          data-cta-label="首页编辑部首选"
+        >
+          <img class="top6-card__ribbon" src="/assets/badges/top1-ribbon.svg" alt="编辑部首选" aria-hidden="true" />
+          <div class="top6-card__content">
+            <div class="top6-card__identity">
+              <span class="top6-card__icon" style={`--decor-from:${decor.from};--decor-to:${decor.to}`}>
+                {decor.glyph}
+              </span>
+              <span class="top6-card__name">{featuredEntry.providerName}</span>
+            </div>
+            {highlight && (
+              <p class="rating">
+                <span class="rating__score">综合评分 {highlight.score} / 10</span>
+                <span class="rating__stars" aria-hidden="true">
+                  {'★'.repeat(highlight.stars)}
+                </span>
+              </p>
+            )}
+            <p class="top6-card__reason">{featuredEntry.reason}</p>
+            {highlight && (
+              <p class="top6-card__meta">
+                {highlight.tags.map((tag) => (
+                  <span class="top6-card__chip">{tag}</span>
+                ))}
+              </p>
+            )}
+            {highlight && <p class="price">{highlight.price}</p>}
+            <span class="top6-card__cta">查看详情 →</span>
+          </div>
+        </a>
+      );
+    })()
+}
+
+{restEntries.length > 0 && <p class="top6-more-label">更多精选</p>}
+
+<div class="top6-grid">
+  {
+    restEntries.map((entry) => {
+      const highlight = HOMEPAGE_HIGHLIGHTS[entry.providerId];
+      const decor = DECOR[entry.providerId] ?? { glyph: entry.providerName.slice(0, 1), from: '#94a3b8', to: '#64748b' };
+      return (
+        <a
+          class="top6-card"
+          href={`/airports/${entry.providerSlug}/`}
+          data-analytics-event="recommendation_card_click"
+          data-provider={entry.providerSlug}
+          data-provider-name={entry.providerName}
+          data-cta-label={`首页编辑精选第${entry.finalRank}名`}
+        >
+          <span class="top6-card__rank">{entry.finalRank}</span>
+          <span class="top6-card__icon" style={`--decor-from:${decor.from};--decor-to:${decor.to}`}>
+            {decor.glyph}
+          </span>
+          <span class="top6-card__name">{entry.providerName}</span>
+          {highlight && (
+            <p class="rating rating--compact">
+              <span class="rating__score">综合评分 {highlight.score} / 10</span>
+              <span class="rating__stars" aria-hidden="true">
+                {'★'.repeat(highlight.stars)}
+              </span>
+            </p>
+          )}
+          <p class="top6-card__reason">{entry.reason}</p>
+          {highlight && (
+            <p class="top6-card__meta">
+              {highlight.tags.map((tag) => (
+                <span class="top6-card__chip">{tag}</span>
+              ))}
+            </p>
+          )}
+          {highlight && <p class="price price--compact">{highlight.price}</p>}
+          <span class="top6-card__cta">查看详情 →</span>
+        </a>
+      );
+    })
+  }
+</div>

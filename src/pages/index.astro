@@ -1,0 +1,113 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HomeHero from '../components/HomeHero.astro';
+import StatsBar from '../components/StatsBar.astro';
+import Top6Grid from '../components/Top6Grid.astro';
+import { isDemoEntry } from '../data/utils/demo-filter';
+import { getPublishableProviders } from '../data/utils/provider-publish-gate';
+import { getRankingPageData } from '../data/utils/ranking-entries';
+import { resolveCanonicalUrl } from '../config/seo';
+
+// 首页展示"当前收录的推荐榜单数量"用的是真实存在的榜单页面数量（综合 + 三个专项），
+// 和 /rankings/ 首页用的是同一份 subRankings 结构，不是凭空写的数字。
+const RANKING_PAGE_COUNT = 4; // overall + best-value + most-stable + for-beginners
+
+const [articles, publishableProviders, { entries: overallEntries }] = await Promise.all([
+  getCollection('articles', ({ id }) => !isDemoEntry(id)),
+  getPublishableProviders(),
+  getRankingPageData('overall'),
+]);
+
+// 首页只展示编辑部精选的前 7 位（编辑部首选 + 更多精选网格），
+// 完整的 15 家精选名单在 /rankings/ 页面查看。
+const featuredEntries = overallEntries.slice(0, 7);
+
+// 首页"编辑部首选/更多精选"是可见内容里唯一的真实排名列表，ItemList 里只放
+// 名称+链接，不带任何评分/评级字段——当前数据模型里没有可靠的客观评分，写了就是虚构。
+const pickItemListJsonLd =
+  featuredEntries.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        name: '爱机场推荐 编辑部精选 前7位',
+        itemListElement: featuredEntries.map((entry, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: entry.providerName,
+          url: resolveCanonicalUrl(`/airports/${entry.providerSlug}/`),
+        })),
+      }
+    : null;
+---
+
+<BaseLayout
+  title="爱机场推荐｜编辑部机场代理精选清单"
+  description="爱机场推荐编辑部直接告诉你更推荐哪一个机场代理服务商、为什么，每条推荐理由都写清楚依据和资料来源，资料不够就老实说不够。"
+  keywords={['机场推荐', '机场代理', '编辑精选', '机场代理推荐', '爱机场推荐']}
+>
+  <HomeHero />
+
+  <div class="container">
+    <section class="section">
+      <div class="section__head">
+        <div>
+          <span class="section__eyebrow">编辑部精选</span>
+          <h2>这是我们的推荐名单</h2>
+        </div>
+        <a class="section__more" href="/rankings/">查看完整精选榜 →</a>
+      </div>
+
+      {
+        featuredEntries.length > 0 ? (
+          <Top6Grid entries={featuredEntries} />
+        ) : (
+          <div class="empty-state">
+            <p class="empty-state__title">当前暂无符合发布条件的服务商</p>
+            <p>数据不足时我们不会为了凑数而给出推荐，等有服务商满足发布门槛后会自动出现在这里。</p>
+          </div>
+        )
+      }
+    </section>
+
+    <StatsBar providerCount={publishableProviders.length} rankingCount={RANKING_PAGE_COUNT} articleCount={articles.length} />
+
+    <section class="section">
+      <div class="section__head">
+        <div>
+          <span class="section__eyebrow">继续了解</span>
+          <h2>从这里开始</h2>
+        </div>
+      </div>
+      <div class="entry-grid">
+        <a class="entry-card" href="/rankings/">
+          <span class="entry-card__title">编辑部精选榜</span>
+          <p class="entry-card__description">15 家机场代理服务商的完整精选名单，每一位的推荐理由都单独写明。</p>
+          <span class="entry-card__cta">查看完整榜单 →</span>
+        </a>
+        <a class="entry-card" href="/airports/">
+          <span class="entry-card__title">品牌资料库</span>
+          <p class="entry-card__description">收录进精选名单的机场代理服务商，官方信息、第三方资料、编辑判断分开标注。</p>
+          <span class="entry-card__cta">浏览品牌资料 →</span>
+        </a>
+        <a class="entry-card" href="/knowledge/">
+          <span class="entry-card__title">机场代理知识库</span>
+          <p class="entry-card__description">选之前该看懂哪些概念、编辑部怎么做判断，知识库从这些实际问题讲起。</p>
+          <span class="entry-card__cta">进入知识库 →</span>
+        </a>
+        <a class="entry-card" href="/reviews/">
+          <span class="entry-card__title">机场评测</span>
+          <p class="entry-card__description">编辑部首选品牌的详细资料整理与推荐理由，说清楚推荐是怎么来的。</p>
+          <span class="entry-card__cta">查看评测 →</span>
+        </a>
+        <a class="entry-card" href="/troubleshooting/">
+          <span class="entry-card__title">故障排查</span>
+          <p class="entry-card__description">选完、用上之后遇到连接问题，先查这里的排查合集。</p>
+          <span class="entry-card__cta">查看故障排查 →</span>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  {pickItemListJsonLd && <script type="application/ld+json" set:html={JSON.stringify(pickItemListJsonLd)} />}
+</BaseLayout>

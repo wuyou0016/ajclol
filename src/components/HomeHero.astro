@@ -1,0 +1,73 @@
+---
+// 爱机场推荐首页 Hero 只负责"这个站是干什么的"这句话本身，不放排名侧栏
+// 或横向对比表这类结构（那些是站群内其他姊妹站的首页结构，具体对照见
+// CLAUDE.md 第26节"姊妹站"部分）。编辑部首选的大卡片紧跟在 Hero 下方
+// 单独成块（见 index.astro 里的 Top6Grid），Hero 这里保持纯文字介绍，
+// 让首选卡片一进入视野就足够醒目。
+---
+
+<section class="hero">
+  <div class="hero__backdrop" aria-hidden="true"></div>
+
+  <div class="container">
+    <div class="hero__top hero__top--single">
+      <div>
+        <span class="hero__eyebrow-badge">编辑部实测精选 · 说真话 · 持续更新</span>
+        <h1>
+          机场怎么选，编辑部直接告诉你答案
+          <br />
+          <span class="hero__accent">爱机场推荐</span>
+        </h1>
+        <p class="hero__subtitle">
+          我们不把所有品牌摆在一张表里让你自己猜，而是编辑部先把资料看一遍，愿意明确说出"我们更推荐哪一个、为什么"——每条推荐理由都写清楚依据，资料不够就老实说不够，不为了凑热闹瞎推荐。
+        </p>
+
+        <ul class="hero__features">
+          <li>
+            <img class="hero__feature-icon" src="/assets/icons/features/shield.svg" alt="" aria-hidden="true" />
+            <span>
+              <strong>有理由</strong>
+              每条推荐都写清楚为什么
+            </span>
+          </li>
+          <li>
+            <img class="hero__feature-icon" src="/assets/icons/features/bolt.svg" alt="" aria-hidden="true" />
+            <span>
+              <strong>有态度</strong>
+              编辑部敢明确说出首选是谁
+            </span>
+          </li>
+          <li>
+            <img class="hero__feature-icon" src="/assets/icons/features/diamond.svg" alt="" aria-hidden="true" />
+            <span>
+              <strong>不硬凑</strong>
+              资料薄的品牌，我们如实说薄
+            </span>
+          </li>
+        </ul>
+
+        <div class="hero__ctas">
+          <span class="hero__cta-glow-wrap">
+            <img class="hero__cta-glow asset-dark" src="/assets/glow/dark/cta.svg" alt="" aria-hidden="true" />
+            <img class="hero__cta-glow asset-light" src="/assets/glow/light/cta.svg" alt="" aria-hidden="true" />
+            <a class="button button--primary button--large" href="/rankings/">
+              <img class="button__bg asset-dark" src="/assets/buttons/primary-dark.svg" alt="" aria-hidden="true" />
+              <img class="button__bg asset-light" src="/assets/buttons/primary-light.svg" alt="" aria-hidden="true" />
+              <span class="button__text">看编辑部完整精选榜 →</span>
+            </a>
+          </span>
+          <a class="button button--large" href="/airports/">
+            <img class="button__bg asset-dark" src="/assets/buttons/secondary-dark.svg" alt="" aria-hidden="true" />
+            <img class="button__bg asset-light" src="/assets/buttons/secondary-light.svg" alt="" aria-hidden="true" />
+            <span class="button__text">品牌资料库</span>
+          </a>
+          <a class="button button--large" href="/knowledge/how-we-pick/">
+            <img class="button__bg asset-dark" src="/assets/buttons/secondary-dark.svg" alt="" aria-hidden="true" />
+            <img class="button__bg asset-light" src="/assets/buttons/secondary-light.svg" alt="" aria-hidden="true" />
+            <span class="button__text">编辑部怎么选</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

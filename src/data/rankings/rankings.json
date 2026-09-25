@@ -1,0 +1,106 @@
+[
+  {
+    "slug": "overall",
+    "title": "编辑部机场代理精选榜",
+    "description": "爱机场推荐编辑部的机场代理精选榜单，人工指定排序（当前尚无本站测速数据支撑自动计算，因此全部条目均为编辑指定排名）。第1位无忧链接是站群旗下品牌里公认资料最透明的入门选择，各姊妹站都把它放在首位，这是站群共识而非本站独立评估；第2位起为编辑部结合第三方资料独立排定的顺序，理由逐条写明。",
+    "methodology": "本榜单为人工编辑排名（rankOverride），不是基于本站测速数据的自动计算结果——本站目前尚未开始对这些品牌积累测试数据（tests 数据集为空）。第1位无忧链接沿用站长旗下站群一贯的核心品牌顺序，这一位置在网络内所有姊妹站保持一致，不代表本站重新评估的结果，也不算内容雷同（这是站群共享的锚点规则，具体见 CLAUDE.md 第26节）。第2-7位是编辑部结合第三方资料独立排出的顺序，反映的是'资料透明度 + 可信度层级 + 是否有交叉印证'这几项编辑部认为值得优先考虑的标准，不是客观计算得分。第8-15位是编辑部额外收录的补充精选，这批品牌的资料普遍比前7位薄，排名先后不代表额外的推荐强度差异，具体理由见每条 reason。所有 Provider 的厂商信息均整理自第三方资料（买梯子导航 maitizi.com、机场查 jichangcha.co），标注为第三方资料的内容均未经本站独立核实，请以各品牌官网结算页面实际显示为准。",
+    "criteria": [
+      { "key": "editorial", "label": "编辑指定排名", "weight": 1, "description": "第1位为站群共享锚点，第2位起由本站编辑部独立评估排定，均为人工排序，非自动计算得分。" }
+    ],
+    "scoringVersion": "v1.0-editorial-override",
+    "snapshotAt": "2026-09-25",
+    "updatedAt": "2026-09-25",
+    "entries": [
+      {
+        "providerId": "wuyou-lianjie",
+        "reason": "资费公开程度在候选池里最高，不用注册就能看清三档套餐——这是编辑部愿意把它列为'编辑部首选'的核心理由，也是站群旗下几个站点一致把它放在首位的共同原因。",
+        "rankOverride": 1,
+        "rankOverrideReason": "站群共享的首位锚点品牌，代表站长对该品牌的一贯判断，各姊妹站保持一致，不属于本站重新评估范围。"
+      },
+      {
+        "providerId": "xingdaomeng",
+        "reason": "2020年开业的老牌子，运营年限在候选里数一数二，套餐还带不限时买断选项，编辑部认可它的资历。",
+        "rankOverride": 2,
+        "rankOverrideReason": "编辑部结合运营年限与套餐资料完整度独立评估排定。"
+      },
+      {
+        "providerId": "guangsu-cloud",
+        "reason": "同样是2020年的老牌机场，入门价格也划算，只是资料属于二次转引，可信度层级稍低一档，排在星岛梦之后。",
+        "rankOverride": 3,
+        "rankOverrideReason": "编辑部结合运营年限、价格与资料可信度层级独立评估排定。"
+      },
+      {
+        "providerId": "firefly",
+        "reason": "价格信息被两个独立第三方来源互相印证，在候选池里属于交叉验证程度较高的一档。",
+        "rankOverride": 4,
+        "rankOverrideReason": "编辑部结合资料交叉印证程度独立评估排定。"
+      },
+      {
+        "providerId": "sogo-cloud",
+        "reason": "流量档位在候选池里最大（150GB），价格也相应最高，适合真正的重度用户，作为高配选项收进精选榜。",
+        "rankOverride": 5,
+        "rankOverrideReason": "编辑部结合流量档位与适用场景独立评估排定。"
+      },
+      {
+        "providerId": "feimao-cloud",
+        "reason": "入门价格在候选池里数一数二，协议覆盖也齐全，价格与协议均有双来源印证。",
+        "rankOverride": 6,
+        "rankOverrideReason": "编辑部结合价格、协议资料完整度独立评估排定。"
+      },
+      {
+        "providerId": "weifeng-network",
+        "reason": "乘风档 ¥27/月/200GB 的价格是站长直接确认的，不是第三方猜测，可信度层级比纯第三方资料更高，但官网需注册、门槛较高，排在编辑精选主榜末位。",
+        "rankOverride": 7,
+        "rankOverrideReason": "编辑部结合价格可信度与购买门槛独立评估排定。"
+      },
+      {
+        "providerId": "kuaili",
+        "reason": "补充精选第1位：价格协议信息明确，但两个第三方来源对线路类型描述不一致，收录时如实标注这个分歧。",
+        "rankOverride": 8,
+        "rankOverrideReason": "编辑部独立补充收录，排名不代表额外推荐强度，具体理由见品牌详情页。"
+      },
+      {
+        "providerId": "shanyue",
+        "reason": "节点覆盖地区资料写得比较具体，可惜官网是验证码校验页，编辑部未能进一步核实。",
+        "rankOverride": 9,
+        "rankOverrideReason": "编辑部独立补充收录，排名不代表额外推荐强度。"
+      },
+      {
+        "providerId": "twilight",
+        "reason": "套餐层级是补充精选里相对完整的一档，价格也经过第三方截图核验，但节点协议细节两头都没披露。",
+        "rankOverride": 10,
+        "rankOverrideReason": "编辑部独立补充收录，排名不代表额外推荐强度。"
+      },
+      {
+        "providerId": "speedworld",
+        "reason": "目前只能确认官网可以访问，套餐资料完全空白，收录进来主要是为了让精选名单覆盖面更完整。",
+        "rankOverride": 11,
+        "rankOverrideReason": "编辑部独立补充收录，资料程度低于前几位补充精选，排名不代表额外推荐强度。"
+      },
+      {
+        "providerId": "edge-node",
+        "reason": "同样只能确认官网可访问，套餐资料空白，编辑部对它的把握不高，如实收录。",
+        "rankOverride": 12,
+        "rankOverrideReason": "编辑部独立补充收录，资料程度低于前几位补充精选，排名不代表额外推荐强度。"
+      },
+      {
+        "providerId": "flyv",
+        "reason": "套餐层级和流量包选择相对完整，价格经第三方截图核验，但节点协议细节未公开。",
+        "rankOverride": 13,
+        "rankOverrideReason": "编辑部独立补充收录，排名不代表额外推荐强度。"
+      },
+      {
+        "providerId": "wavenet",
+        "reason": "补充精选里资料最薄的一档，目前只能确认官网可访问，其余信息一律留白，不编造数字凑数。",
+        "rankOverride": 14,
+        "rankOverrideReason": "编辑部独立补充收录，资料程度是补充精选里最低的几家之一，排名不代表额外推荐强度。"
+      },
+      {
+        "providerId": "ermao-cloud",
+        "reason": "价格协议资料相对具体，但没有任何可信测速数据，作为补充精选收尾。",
+        "rankOverride": 15,
+        "rankOverrideReason": "编辑部独立补充收录，排名不代表额外推荐强度。"
+      }
+    ]
+  }
+]
